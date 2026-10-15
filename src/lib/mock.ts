@@ -20,32 +20,42 @@ export type InvitationResponse = {
 
 export const mockInvitation: Invitation = {
   id: "3f8b2c1e-7a4d-4e9b-9c61-2d5a8f0e4b17",
-  title: "허들링 클럽 2번째\n오프라인 밋업",
+  title: "쮸니의\n생일 파티에 초대해요",
   date: "2026-11-14T09:00:00+09:00",
   location: "세종 남극 기지",
-  body: "추운 겨울, 함께 모여 온기를 나눠요.\n편하게 오셔서 이야기 나누고 맛있는 것도 먹어요.",
+  body: "시니, 신아빠, 이엄마, 피고양즈, 함모니, 하부지, 삼츈, 숙모, 막내공쥬에게.\n\n오래된 동화책을 한 장 넘기듯,\n쮸니의 생일날 사랑하는 가족을 초대해요.\n\n포근한 불빛 아래 옹기종기 둘러앉아\n달콤한 케이크와 오래 간직할 추억을 나눠요.\n\n꼭 와 주실 거죠?",
 };
 
+// 응답이 하나도 없는 초대장 (응답 0건 화면 확인용: /i/empty/responses)
+export const mockEmptyInvitation: Invitation = {
+  id: "empty",
+  title: "아직 응답이 없는\n테스트 초대장",
+  date: "2026-12-05T18:30:00+09:00",
+  location: "세종 남극 기지 2층",
+  body: "응답이 0건일 때 화면을 확인하기 위한 초대장이에요.",
+};
+
+// 아래 응답은 모두 mockInvitation 것. mockEmptyInvitation의 응답은 없다
 // 참석 2 · 불참 1 · 참석 인원 합계 5명 (참석자 2명 + 동반 3명)
 export const mockResponses: InvitationResponse[] = [
   {
     id: "a1c4e7f0-2b5d-4c8e-9f13-6a9b2c5d8e01",
     invitationId: mockInvitation.id,
-    name: "김허들",
+    name: "이엄마",
     attending: true,
     guests: 1,
   },
   {
     id: "b2d5f8a1-3c6e-4d9f-8a24-7b0c3d6e9f12",
     invitationId: mockInvitation.id,
-    name: "이펭귄",
+    name: "삼츈",
     attending: false,
     guests: 0,
   },
   {
     id: "c3e6a9b2-4d7f-4e0a-9b35-8c1d4e7f0a23",
     invitationId: mockInvitation.id,
-    name: "박빙하",
+    name: "함모니",
     attending: true,
     guests: 2,
   },

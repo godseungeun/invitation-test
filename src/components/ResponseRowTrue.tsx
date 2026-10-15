@@ -10,7 +10,7 @@ type ResponseRowTrueProps = ComponentProps<"div"> & {
 
 // Figma ResponseRow/true (67:93806): 응답 현황 목록 한 줄
 export default function ResponseRowTrue({
-  name = "김허들",
+  name = "이엄마",
   meta = "010-****-1234 · 굿즈 M",
   status = "yes",
   className = "",

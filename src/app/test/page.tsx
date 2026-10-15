@@ -25,6 +25,8 @@ import Stepper from "@/components/Stepper";
 import SuccessIcon from "@/components/SuccessIcon";
 import Textarea from "@/components/Textarea";
 import TextareaField from "@/components/TextareaField";
+import { formatDate } from "@/lib/format";
+import { mockInvitation } from "@/lib/mock";
 
 // 실습용 테스트 화면. 컴포넌트를 종류·상태별로 모두 보여준다.
 const sizes = ["sm", "md", "lg"] as const;
@@ -48,6 +50,18 @@ export default function TestPage() {
   return (
     <main className="mx-auto flex w-full max-w-md flex-col gap-section px-page-horizontal py-section">
       <h1 className="text-heading-lg text-text-primary">컴포넌트 모음</h1>
+
+      <Demo title="가짜 초대장 (src/lib/mock.ts)">
+        <InvitationCover
+          title={mockInvitation.title}
+          date={formatDate(mockInvitation.date)}
+          location={mockInvitation.location}
+        />
+        <p className="whitespace-pre-line text-body-lg text-text-primary">{mockInvitation.body}</p>
+        <div className="bg-surface-subtle p-stack-md">
+          <RSVPCard />
+        </div>
+      </Demo>
 
       <Demo title="Button">
         {sizes.map((size) => (
@@ -155,8 +169,8 @@ export default function TestPage() {
       </Demo>
 
       <Demo title="ResponseRow/true">
-        <ResponseRowTrue name="김허들" meta="동반 1명" status="yes" />
-        <ResponseRowTrue name="이펭귄" meta="" status="no" />
+        <ResponseRowTrue name="이엄마" meta="동반 1명" status="yes" />
+        <ResponseRowTrue name="삼츈" meta="" status="no" />
       </Demo>
 
       <Demo title="EmptyState">
@@ -199,7 +213,7 @@ export default function TestPage() {
         </div>
         <Caption>state=&quot;done&quot;</Caption>
         <div className="bg-surface-subtle p-stack-md">
-          <RSVPCard state="done" response={{ name: "김허들", attending: true, guests: 1 }} />
+          <RSVPCard state="done" response={{ name: "이엄마", attending: true, guests: 1 }} />
         </div>
       </Demo>
     </main>
