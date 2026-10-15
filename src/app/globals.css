@@ -1,19 +1,291 @@
 @import "tailwindcss";
 @source not "../../.claude";
+
+/* 기존 변수: 이제 Figma 토큰을 가리킨다 (bg-background, text-foreground 계속 사용 가능) */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: var(--color-surface-default);
+  --foreground: var(--color-text-primary);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+}
+
+/* Figma 디자인 토큰 (node 67:92890) */
+@theme {
+  /* 기본 간격 단위 1px: p-16 = 16px, gap-8 = 8px */
+  --spacing: 1px;
+
+  /* 글꼴 */
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
+  /* 문서용 글꼴 - typography/documentation/font-family (Google Fonts CDN, layout.tsx) */
+  --font-inter: Inter, -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+
+  /* 색상 - color/text/… */
+  --color-text-primary: #131313;
+  --color-text-secondary: #6b7280;
+  --color-text-tertiary: #66707a;
+  --color-text-strong: #000000;
+  --color-text-disabled: #a0a2a3;
+
+  /* 색상 - color/surface, color/background */
+  --color-surface-default: #ffffff;
+  --color-surface-subtle: #f3f4f6;
+  --color-surface-inverse: #1f2937;
+  --color-background-subtle: #f9fafb;
+
+  /* 색상 - color/border */
+  --color-border-default: #e5e7eb;
+  --color-border-subtle: #e7e7e8;
+  --color-border-accent: #1f3dbc;
+  --color-border-on-dark: #ffffff33;
+
+  /* 색상 - color/action */
+  --color-action-primary: #536dfe;
+  --color-action-secondary: #297eff;
+  --color-action-hover-overlay: #1f3dbcb2;
+
+  /* 색상 - color/info, color/feedback */
+  --color-info-subtle: #dceafe;
+  --color-info-soft: #74aafb;
+  --color-info-strong: #00378a;
+  --color-feedback-error: #d90000;
+
+  /* 색상 - color/preview */
+  --color-preview-neutral-800: #5e5e5e;
+
+  /* 색상 - color/guide-text, color/guide-surface, color/guide-border (Figma 가이드 문서용) */
+  --color-guide-text-preserved-1: #131313;
+  --color-guide-text-preserved-6: #d90000;
+  --color-guide-text-preserved-7: #6b7380;
+  --color-guide-text-preserved-9: #111827;
+  --color-guide-text-preserved-12: #6b7380;
+  --color-guide-surface-preserved-8: #e5e8ed;
+  --color-guide-surface-preserved-10: #f6f7fa;
+  --color-guide-surface-preserved-13: #e8edff;
+  --color-guide-border-preserved-11: #e5e8ed;
+
+  /* 이름 있는 간격 - spacing (숫자 클래스와 함께 쓸 수 있음: px-page-horizontal) */
+  --spacing-none: 0px;
+  --spacing-inline-xs: 2px;
+  --spacing-inline-sm: 4px;
+  --spacing-compact-detail: 5px;
+  --spacing-inline-compact: 6px;
+  --spacing-inline-md: 8px;
+  --spacing-control-compact: 10px;
+  --spacing-control-x: 12px;
+  --spacing-stack-sm: 12px;
+  --spacing-stack-md: 16px;
+  --spacing-page-horizontal: 20px;
+  --spacing-stack-lg: 24px;
+  --spacing-stack-xl: 28px;
+  --spacing-section: 32px;
+  --spacing-section-lg: 40px;
+  --spacing-section-xl: 60px;
+  --spacing-cover-inset: 80px;
+
+  /* 간격 - spacing/preview */
+  --spacing-preview-body-compact: 15px;
+  --spacing-preview-heading: 18px;
+  --spacing-preview-title: 25px;
+  --spacing-preview-display: 26px;
+
+  /* 간격 - spacing/guide (Figma 가이드 문서용) */
+  --spacing-guide-row: 14px;
+  --spacing-guide-group: 56px;
+  --spacing-guide-inset: 64px;
+  --spacing-guide-section: 120px;
+
+  /* 모서리 둥글기 - radius */
+  --radius-none: 0px;
+  --radius-button: 6px;
+  --radius-control: 8px;
+  --radius-media: 12px;
+  --radius-card: 20px;
+  --radius-cover: 32px;
+  --radius-pill: 999px;
+
+  /* 모서리 둥글기 - radius/guide (Figma 가이드 문서용) */
+  --radius-guide-chip: 10px;
+  --radius-guide-panel: 16px;
+  --radius-guide-card: 24px;
+
+  /* 글자 크기 - typography/…/font-size (텍스트 스타일 클래스에서 사용) */
+  --font-size-display-lg: 26px;
+  --font-size-title-lg: 25px;
+  --font-size-heading-lg: 20px;
+  --font-size-heading-md: 18px;
+  --font-size-body-lg: 16px;
+  --font-size-label-lg: 16px;
+  --font-size-body-compact: 15px;
+  --font-size-body-md: 14px;
+  --font-size-label-md: 14px;
+  --font-size-caption-md: 12px;
+  --font-size-preserved-36: 36px;
+  --font-size-preserved-13: 13px;
+  --font-size-preserved-11: 11px;
+
+  /* 행간 (Figma 140%, 150% → 글자 크기의 배수) */
+  --leading-heading: 1.4;
+  --leading-body: 1.5;
+  --leading-documentation: 1.45;
+
+  /* 자간 - typography/letter-spacing/0 */
+  --tracking-0: 0px;
+
+  /* 자간 - Documentation/Medium/11 의 4% (11px 기준 0.44px) */
+  --tracking-documentation-caps: 0.04em;
+}
+
+/* 텍스트 스타일 - Figma Typography */
+@utility text-display-lg {
+  font-size: var(--font-size-display-lg);
+  font-weight: var(--font-weight-extrabold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-title-lg {
+  font-size: var(--font-size-title-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-heading-lg {
+  font-size: var(--font-size-heading-lg);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-heading-md {
+  font-size: var(--font-size-heading-md);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-body-lg {
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-label-lg {
+  font-size: var(--font-size-label-lg);
+  font-weight: var(--font-weight-semibold);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-body-compact {
+  font-size: var(--font-size-body-compact);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-body-md {
+  font-size: var(--font-size-body-md);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-label-md {
+  font-size: var(--font-size-label-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-caption-md {
+  font-size: var(--font-size-caption-md);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-0);
+}
+
+/* 텍스트 스타일 - Figma Typography/Documentation (Inter) */
+@utility text-documentation-medium-36 {
+  /* Typography/Documentation/Medium/36/13 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-preserved-36);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-documentation-medium-18 {
+  /* Typography/Documentation/Medium/18/15 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-heading-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-documentation-regular-18 {
+  /* Typography/Documentation/Regular/18/14 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-heading-md);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-documentation-regular-13 {
+  /* Typography/Documentation/Regular/13/16 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-preserved-13);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-documentation-medium-12 {
+  /* Typography/Documentation/Medium/12/11 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-caption-md);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-documentation-regular-12 {
+  /* Typography/Documentation/Regular/12/12 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-caption-md);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-0);
+}
+
+@utility text-documentation-medium-11 {
+  /* Typography/Documentation/Medium/11/17 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-preserved-11);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-documentation-caps);
+}
+
+@utility text-documentation-regular-11 {
+  /* Typography/Documentation/Regular/11/18 */
+  font-family: var(--font-inter);
+  font-size: var(--font-size-preserved-11);
+  font-weight: var(--font-weight-normal);
+  line-height: var(--leading-documentation);
+  letter-spacing: var(--tracking-0);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
 }
